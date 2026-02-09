@@ -342,5 +342,31 @@ pm.test("Subregion matches requested subregion", function () {
     });
 });
 
+def filePath = "C:/Users/tejasrimadas/Downloads/CS.csv"
+
+new File(filePath).eachLine { line, index ->
+    if (index > 1) {
+        log.info "Value = " + line
+    }
+}
+
+
+def filePath = "C:/Users/tejasrimadas/Downloads/CS.csv"
+
+def file = new File(filePath)
+
+def restStep = testRunner.testCase.getTestStepByName("Subregion 1 - Request 1")
+
+file.eachLine { line, index ->
+    if (index > 1) {                 
+        log.info "Calling API for: " + line
+
+        
+        context.testCase.setPropertyValue("subregion", line.trim())
+
+       
+        testRunner.runTestStep(restStep)
+    }
+}
 
 
